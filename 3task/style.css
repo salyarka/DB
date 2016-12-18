@@ -1,0 +1,26 @@
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table td, table th {
+    border: 1px solid;
+    padding: 5px;
+}
+
+form {
+	display: inline;
+}
+
+h4 {
+	color: red;
+}
+
+h5 {
+	color: green;
+}
+
+div {
+	display: inline;
+	float: right;
+}
