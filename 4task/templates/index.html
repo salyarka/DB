@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+	<title>Управление таблицами</title>
+</head>
+<body>
+	<h1>Информация о таблицах</h1>
+	<form>
+		<label for="table">Показать информацию по таблице:</label>
+		<select name="table">
+        	<?php foreach ($tables as $table): ?>
+        		<option value="<?= $table['Tables_in_salyarka'] ?>"><?= $table['Tables_in_salyarka'] ?></option>
+        	<?php endforeach; ?>	
+        </select>
+        <input type="submit" value="Выполнить">
+	</form>
+	<hr>
+	<?php if (!empty($info)): ?>
+	<table>
+		<caption><?= cleanData($_GET['table']) ?></caption>	
+		<thead>
+			<tr>
+				<th>Поле</th>
+				<th>Тип</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($info as $each): ?>
+				<tr>
+					<td><?= $each['Field'] ?></td>
+					<td><?= $each['Type'] ?></td>
+				</tr>	
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php endif; ?>
+</body>
+</html>
