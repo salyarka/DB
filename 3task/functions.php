@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * Автозагрузчик классов
  * @param  string $class название класса
@@ -41,20 +40,4 @@ function isDone($state)
 		return 'В работе';
 	}
 }
-
-/**
- * Извлекает логин из запроса
- * @param  array   $data     результат запроса
- * @param  string  $default  строка возвращающаяся, если нет ответа на запрос
- * @return string            логин или заданную строку
- */
-function extLogin($data, $default = null)
-{
-	if ($data) {
-		return $data[0]['login'];
-	} else {
-		return $default;
-	}
-}
-
 ?>

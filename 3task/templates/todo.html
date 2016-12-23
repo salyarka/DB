@@ -1,0 +1,113 @@
+<?php ob_start(); ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TODO</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+    <h1>Список задач</h1>
+    <form method="POST">
+        <label for="task">Новая задача:</label>
+        <input type="text" name="task">
+        <button type="submit">Добавить</button>
+    </form>	
+    <form method="POST">
+        <label for="sort">Сортировать по:</label>
+        <select name="sort_by">
+            <option value="description">Задачам</option>
+            <option value="date_added">Дате</option>
+            <option value="is_done">Статусу</option>
+        </select>
+        <input type="submit" name="sort" value="Отсортировать">
+    </form>
+    <div id="logout">
+        <a href="../auth/logout.php">Выход(<?= $_SESSION['login'] ?>)</a>
+    </div>
+    <hr>
+    <table>
+        <tr>
+            <th>Задачи</th>
+            <th>Статус</th> 
+            <th>Добавлено</th>
+            <th>Изменить</th>
+            <th>Выполнить/Удалить</th>
+            <th>Ответственный</th>
+            <th>Закрепить за другим пользователем</th>
+        </tr>               
+        <?php foreach ($tasks as $each): ?>
+            <tr>
+                <td><?= $each['description'] ?></td>
+                <td><?= isDone($each['is_done']) ?></td>
+                <td><?= $each['date_added'] ?></td>
+                <td>
+                    <form method="POST">
+                        <input type="text" name="edit">
+                        <input type="hidden" name="id" value="<?= $each['id'] ?>">
+                        <button type="submit">Редактировать</button>
+                    </form>	
+                </td>
+                <td>
+                    <?php if ($each['login'] == $_SESSION['login']): ?>
+                        <form method="POST">
+                            <input type="hidden" name="do" value="<?= $each['id'] ?>">
+                            <button type="submit">Выполнить</button>
+                        </form>
+                    <?php endif; ?>
+                    <form method="POST">
+                        <input type="hidden" name="delete" value="<?= $each['id'] ?>">
+                        <button type="submit">Удалить</button>
+                    </form>	
+                </td>
+                <td>
+                    <?php if ($each['login'] == $_SESSION['login']): ?>
+                        <p>Вы</p>
+                    <?php else: ?>
+                        <?= $each['login'] ?>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <form method="POST">
+                        <input type="hidden" name="task_id" value="<?= $each['id'] ?>">
+                            <select name="set_to_user">
+                                <?php foreach ($users as $user): ?>
+                                    <option value="<?= $user['id'] ?>"><?= $user['login'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        <input type="submit" name="sort" value="Выполнить">
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?> 
+    </table>           
+    <hr>
+    <h2>Задачи назначенные Вам другими пользователями</h2>
+    <hr>
+    <table>
+        <tr>
+            <th>Задачи</th>
+            <th>Статус</th>	
+            <th>Добавлено</th>
+            <th>Выполнить</th>
+            <th>Автор</th>
+        </tr>
+        <?php foreach($assignedTasks as $each): ?>
+            <tr>
+                <td><?= $each['description'] ?></td>
+                <td><?= isDone($each['is_done']) ?></td>
+                <td><?= $each['date_added'] ?></td>
+                <td>
+                    <form method="POST">
+                        <input type="hidden" name="do" value="<?= $each['id'] ?>">
+                        <button type="submit">Выполнить</button>
+                    </form>
+                </td>
+                <td><?= $each['login'] ?></td>
+            </tr>
+        <?php endforeach; ?>       
+    </table>
+    <hr>   
+</body>
+</html>
+<?php if ($_POST && !$_POST['sort_by']) {header('Location: ' . $_SERVER['PHP_SELF']);} ?>

@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<meta charset="utf-8">
-	<title>TODO</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+    <title>TODO</title>
 </head>
 <body>
-	<center>
-		<h3>Здравствуйте!</h3><br>
-		<p>Для просмотра списка дел авторизуйтесь:</p><br>
-		<form method="POST">
-			<label for="login">Логин:</label>
-			<input type="text" name="login">
-			<label for="password">Пароль:</label>
-			<input type="password" name="password">
-			<button type="submit">Войти</button>
-		</form>
-		<p>Если вы не зарегестрированы, пройдите <a href="auth/registration.php">регистрацию</a>.</p>
-	</center>
+    <center>
+        <?php if (isset($success)): ?>
+            <h5><?= $success ?></h5>
+        <?php elseif(isset($fail)): ?>
+            <h4><?= $fail ?></h4>
+        <?php else: ?>
+            <h3>Здравствуйте!</h3>
+        <?php endif; ?>	
+        <p>Для просмотра списка дел авторизуйтесь:</p><br>
+        <form method="POST">
+            <label for="login">Логин:</label>
+            <input type="text" name="login">
+            <label for="password">Пароль:</label>
+            <input type="password" name="password">
+            <button type="submit">Войти</button>
+        </form>
+        <p>Если вы не зарегестрированы, пройдите <a href="auth/registration.php">регистрацию</a>.</p>
+    </center>
 </body>
 </html>
