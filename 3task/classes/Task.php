@@ -23,7 +23,6 @@ class Task extends DataBase
         $stmt = $this->db->prepare($query); 
         $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
         $stmt->execute();
-
         return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
     
