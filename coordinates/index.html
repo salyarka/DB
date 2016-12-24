@@ -29,9 +29,28 @@
                     </tr>        
                 <?php endforeach; ?>
             </table>
+            <div id="map"></div>
+            <script>
+                var lat = <?= $each->getLatitude() ?>;
+                var lng = <?= $each->getLongitude() ?>;
+                function initMap() {
+                    var uluru = {lat: lat, lng: lng};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 4,
+                        center: uluru
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+                }
+            </script>
+            <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW8aQjaLfPmPcmJgfllAXMzuWRX9SHDlA&callback=initMap">
+            </script>
         <?php elseif(isset($result)): ?>
             <p>Не найдено</p>
         <?php endif; ?>
-    </center>
+        </center>
 </body>
 </html>

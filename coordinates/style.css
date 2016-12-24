@@ -12,3 +12,8 @@ table td, th {
 thead {
 	background-color: grey;
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+}
