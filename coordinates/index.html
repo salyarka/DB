@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Кординаты</title>
+</head>
+<body>
+    <center>
+        <h1>Определение координат по адресу</h1>
+        <form>
+            <label for="address">Введите адрес:</label>
+            <input type="text" name="address">
+            <button type="submit">Найти</button>
+        </form>
+        <?php if (isset($result) && !empty($result)): ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Адрес</th>
+                        <th>Долгота</th>
+                        <th>Широта</th>
+                    </tr>
+                </thead>
+                <?php foreach ($result as $each): ?>
+                    <tr>
+                        <td><?= $each->getAddress() ?></td>
+                        <td><?= $each->getLatitude() ?></td>
+                        <td><?= $each->getLongitude() ?></td>
+                    </tr>        
+                <?php endforeach; ?>
+            </table>
+        <?php elseif(isset($result)): ?>
+            <p>Не найдено</p>
+        <?php endif; ?>
+    </center>
+</body>
+</html>
