@@ -15,3 +15,7 @@ caption {
 thead {
 	background: grey;
 }
+
+#new_field {
+    margin: 10px;
+}

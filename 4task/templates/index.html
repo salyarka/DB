@@ -24,6 +24,8 @@
 			<tr>
 				<th>Поле</th>
 				<th>Тип</th>
+				<th>Изменить тип</th>
+				<th>Удалить</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,10 +33,52 @@
 				<tr>
 					<td><?= $each['Field'] ?></td>
 					<td><?= $each['Type'] ?></td>
+					<td>
+						<form method="POST">
+							<input type="hidden" name="edit_table" value="<?= cleanData($_GET['table']) ?>">
+							<input type="hidden" name="edit_field" value="<?= $each['Field'] ?>">
+							<select name="type">
+							<?php foreach ($types as $key => $type): ?>
+								<optgroup label="<?= $key ?>">
+									<?php foreach ($type as $class): ?>
+										<option name="<?= $each['Field'] ?>" value="<?= $class ?>"><?= $class ?></option>
+									<?php endforeach; ?>
+								</optgroup>
+							<?php endforeach; ?>
+							</select>
+							<label for="lengh">Длина</label>
+							<input type="text" name="lengh">
+							<input type="submit" value="Выполнить">	
+						</form>
+					</td>
+					<td>
+					<form method="POST">
+						<input type="hidden" name="delete_from_table" value="<?= cleanData($_GET['table']) ?>">
+						<input type="hidden" name="delete_field" value="<?= $each['Field'] ?>">
+						<input type="submit" value="Удалить">
+					</form>						
+					</td>
 				</tr>	
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+	<form id="new_field" method="POST">
+		<label for="new_field">Добавить поле:</label>
+		<input type="text" name="new_field">
+		<input type="hidden" name="new_field_table" value="<?= cleanData($_GET['table']) ?>">
+		<select name="new_type">
+			<?php foreach ($types as $key => $type): ?>
+				<optgroup label="<?= $key ?>">
+					<?php foreach ($type as $each): ?>
+						<option value="<?= $each ?>"><?= $each ?></option>
+					<?php endforeach; ?>
+				</optgroup>
+			<?php endforeach; ?>
+		</select>
+		<label for="new_lengh">Длина:</label>
+		<input type="text" name="new_lengh">
+		<input type="submit" value="Добавить">
+	</form>
 	<?php endif; ?>
 </body>
 </html>
